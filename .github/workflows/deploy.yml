@@ -1,0 +1,31 @@
+name: deployment-workflow
+
+on: 
+  push:
+    branches: [ main ]
+    paths:
+      - index.html
+
+permissions: 
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v6.0.2
+        
+      - name: github pages
+        uses: actions/configure-pages@v5.0.0
+
+      - name: upload website files
+        uses: actions/upload-pages-artifact@v4.0.0
+        with:
+          path: .
+
+      - name: deploy-pages 
+        uses: actions/deploy-pages@v4.0.5
+    
